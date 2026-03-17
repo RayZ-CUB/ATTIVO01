@@ -1,48 +1,89 @@
 # ATTIVO
 
-**Move · Earn · Own** — A fitness and sports rewards app with 0G integration.
+**Connect · Play · Improve** — A tennis community platform for players and coaches.
 
 ## What it is
 
-ATTIVO is a single-page web app where you:
+ATTIVO is a mobile-first platform that connects tennis players with coaches, and brings local tennis communities together through a social feed and events calendar.
 
-- **Connect your wallet** (MetaMask, Coinbase Wallet, WalletConnect) on the 0G network
-- **Complete daily challenges** (tennis, cycling, workout) and earn ATTIVO points + 0G
-- **Create and join events** on the calendar and social feed
-- **See your 0G balance** live from the chain
+Tennis is the first sport vertical. The architecture is designed to expand to skiing, hiking, climbing, and other outdoor activities in the future.
 
-The app uses [0G](https://0g.ai) for:
+## Core Features (MVP)
 
-- **0G Chain** — Wallet connection and live 0G balance (Galileo Testnet)
-- **Persistence** — Events saved to `localStorage` (and ready for 0G Storage when using the SDK)
+- **Connect** — Browse verified coaches, filter by skill level and speciality, request a session
+- **Community** — Social feed, event calendar, create and join local tennis events
+- **Profile** — Role-specific profiles for Players and Coaches
+- **Coach Verification** — Coaches go through an admin review before appearing in listings
 
-## Run locally
+## Tech Stack
 
-Wallet connections only work over **http** (not `file://`). Use a local server:
+### Frontend
+- React Native + Expo (iOS, Android, Web from one codebase)
+- Expo Router for file-based navigation
+- TypeScript
+- Zustand for state management
 
-```bash
-# With Node installed
-npx serve .
+### Backend
+- Supabase (PostgreSQL + Auth + Storage + Realtime)
+- Row-level security for data access control
+- Service layer abstraction — screens never call Supabase directly
 
-# Or with Python
-python3 -m http.server 8080
+### Database
+PostgreSQL with tables: `users`, `players`, `coaches`, `events`, `posts`, `session_requests`
+
+All tables include a `sport` column (defaults to `"tennis"`) for future multi-sport expansion.
+
+## Project Structure
+
+```
+attivo/
+├── app/                    # Expo Router screens
+│   ├── (tabs)/
+│   │   ├── discover.tsx    # Home screen
+│   │   ├── connect.tsx     # Player-coach matching
+│   │   ├── community.tsx   # Social feed + events
+│   │   └── profile.tsx     # User profile
+│   ├── _layout.tsx
+│   └── index.tsx           # Onboarding entry point
+├── components/
+│   ├── ui/                 # Shared design system components
+│   └── [feature]/          # Feature-specific components
+├── hooks/                  # Custom React hooks
+├── services/               # Supabase service layer
+├── store/                  # Zustand state management
+├── types/                  # TypeScript interfaces
+├── constants/              # theme.ts (design tokens)
+└── assets/                 # Fonts, images, icons
 ```
 
-Then open **http://localhost:3000/attivo-app.html** (or **http://localhost:8080/attivo-app.html** with Python).
+## User Roles
 
-## Wallet & 0G Testnet
+- **Player** — Any skill level (Beginner → Competitive). Browse coaches, join events, post in the feed.
+- **Coach** — Must be verified by admin before appearing in Connect listings. Manage incoming session requests.
 
-1. Install [MetaMask](https://metamask.io) (or another Web3 wallet).
-2. When you connect, the app will prompt you to add **0G Galileo Testnet** (Chain ID 16602).
-3. Get testnet 0G from the [0G Faucet](https://faucet.0g.ai) (0.1 0G/day).
+## Design System
 
-## Project layout
+Dark theme with lime green (`#c8f135`) accent. Bebas Neue for headings, DM Sans for body text. All tokens defined in `constants/theme.ts`.
 
-- **attivo-app.html** — Single-page app (HTML, CSS, JS); ethers.js loaded via CDN.
-- **docs/0g-ai-context.md** — 0G network config, contract addresses, quick reference.
-- **docs/0g-in-attivo-without-changing-functionality.md** — How 0G is used in the app and what’s implemented.
+## Getting Started
 
-## Links
+> Full setup instructions coming once the React Native project is scaffolded.
 
-- [0G Documentation](https://docs.0g.ai)
-- [0G AI Context](https://docs.0g.ai/ai-context)
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npx expo start
+```
+
+## Spec
+
+Full product requirements are in `.kiro/specs/attivo-tennis-platform/requirements.md`.
+
+## Roadmap
+
+- [ ] MVP: Tennis — player-coach matching + community
+- [ ] Multi-sport expansion (skiing, hiking, climbing)
+- [ ] Coach external API integration (tennis federation registry)
+- [ ] iOS + Android App Store deployment via EAS Build
