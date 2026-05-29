@@ -69,6 +69,17 @@ export const coachService = {
     return mapCoach(data);
   },
 
+  async getCoachByUserId(userId: string): Promise<CoachProfile | null> {
+    const { data, error } = await supabase
+      .from('coaches')
+      .select('*, user:users(*)')
+      .eq('user_id', userId)
+      .single();
+
+    if (error || !data) return null;
+    return mapCoach(data);
+  },
+
   async createCoach(input: CreateCoachInput): Promise<CoachProfile> {
     const { data, error } = await supabase
       .from('coaches')

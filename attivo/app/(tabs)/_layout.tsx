@@ -1,22 +1,6 @@
 import { Tabs } from 'expo-router';
-import { Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, typography } from '../../constants/theme';
-
-function TabIcon({ label, focused }: { label: string; focused: boolean }) {
-  return (
-    <Text
-      style={{
-        fontFamily: typography.fonts.heading,
-        fontSize: 9,
-        color: focused ? colors.lime : colors.muted,
-        letterSpacing: 1,
-        marginTop: 2,
-      }}
-    >
-      {label}
-    </Text>
-  );
-}
 
 export default function TabLayout() {
   return (
@@ -24,7 +8,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.dark,
+          backgroundColor: colors.panel,
           borderTopColor: colors.border,
           borderTopWidth: 1,
           height: 60,
@@ -44,7 +28,11 @@ export default function TabLayout() {
         options={{
           title: 'DISCOVER',
           tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 20 }}>{focused ? '🏠' : '🏠'}</Text>
+            <Ionicons
+              name={focused ? 'home' : 'home-outline'}
+              size={24}
+              color={focused ? colors.lime : colors.muted}
+            />
           ),
         }}
       />
@@ -53,7 +41,11 @@ export default function TabLayout() {
         options={{
           title: 'CONNECT',
           tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 20 }}>{focused ? '🎾' : '🎾'}</Text>
+            <Ionicons
+              name={focused ? 'tennisball' : 'tennisball-outline'}
+              size={24}
+              color={focused ? colors.lime : colors.muted}
+            />
           ),
         }}
       />
@@ -62,7 +54,11 @@ export default function TabLayout() {
         options={{
           title: 'COMMUNITY',
           tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 20 }}>{focused ? '👥' : '👥'}</Text>
+            <Ionicons
+              name={focused ? 'people' : 'people-outline'}
+              size={24}
+              color={focused ? colors.lime : colors.muted}
+            />
           ),
         }}
       />
@@ -71,7 +67,11 @@ export default function TabLayout() {
         options={{
           title: 'PROFILE',
           tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 20 }}>{focused ? '👤' : '👤'}</Text>
+            <Ionicons
+              name={focused ? 'person' : 'person-outline'}
+              size={24}
+              color={focused ? colors.lime : colors.muted}
+            />
           ),
         }}
       />

@@ -116,15 +116,59 @@ All tokens defined in `constants/theme.ts` — no hardcoded colors or fonts anyw
 
 ## Getting Started
 
-> Full setup instructions coming once the React Native project is scaffolded.
+### Prerequisites
 
-```bash
-# Install dependencies
-npm install
+- Node.js 18+ and npm
+- Expo CLI (`npm install -g expo-cli`)
+- A Supabase account and project ([supabase.com](https://supabase.com))
 
-# Start development server
-npx expo start
-```
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd ATTIVO01/attivo
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   
+   Create a `.env` file from the example template:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Then edit `.env` and fill in your Supabase project credentials:
+   
+   - `EXPO_PUBLIC_SUPABASE_URL` — Your Supabase project URL (found in Settings → API)
+   - `EXPO_PUBLIC_SUPABASE_ANON_KEY` — Your Supabase anonymous key (found in Settings → API)
+   - `EXPO_PUBLIC_API_VERSION` — API version (default: `1.0`)
+   - `EXPO_PUBLIC_API_TIMEOUT` — API request timeout in milliseconds (default: `30000`)
+   - `EXPO_PUBLIC_ENVIRONMENT` — Environment name (`development`, `staging`, or `production`)
+   - `EXPO_PUBLIC_ENABLE_REALTIME_FEED` — Enable real-time feed updates (`true` or `false`)
+   
+   **Important:** Never commit your `.env` file to version control. It contains sensitive credentials.
+
+4. **Set up Supabase database**
+   
+   Run the database migrations in your Supabase project:
+   ```bash
+   # Coming soon: migration scripts
+   ```
+
+5. **Start the development server**
+   ```bash
+   npx expo start
+   ```
+   
+   This will open Expo DevTools in your browser. You can then:
+   - Press `i` to open in iOS Simulator
+   - Press `a` to open in Android Emulator
+   - Scan the QR code with Expo Go app on your physical device
 
 ---
 
